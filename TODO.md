@@ -159,6 +159,7 @@
 
 ## Current Status
 
+**Release:** v0.1.0 🚀  
 **Phase:** 4 — **Docker + JS Rendering complete** ✅  
 **All tests passing across 7 packages**  
 **Repo:** https://github.com/paimonchan/paimon-mcp-fetch (public)  
