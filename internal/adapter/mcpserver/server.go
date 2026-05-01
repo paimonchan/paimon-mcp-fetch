@@ -223,7 +223,7 @@ func parseFetchRequest(args map[string]interface{}) (*domain.FetchRequest, error
 			Layout:           "merged",
 		},
 		Security: domain.SecurityOptions{
-			IgnoreRobotsTxt: false,
+			IgnoreRobotsTxt: true, // disabled by default for better UX
 		},
 	}
 

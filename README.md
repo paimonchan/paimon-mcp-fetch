@@ -10,7 +10,7 @@
 - **Image Processing** (optional, `go build -tags image`): Download, resize, merge, and optimize images
 - **JS Rendering** (optional, `go build -tags jsrender`): Headless Chrome for JS-heavy sites (Yahoo Finance, XE.com, etc.)
 - **SSRF Protection**: 7-layer defense in depth against server-side request forgery
-- **Robots.txt Compliance**: Respects robots.txt by default (fail-open with timeout)
+- **Robots.txt Compliance**: Disabled by default for better UX. Can be enabled via `security.ignoreRobotsTxt: false`
 - **Pagination Support**: Read large pages in chunks via `start_index`
 - **Caching**: In-memory LRU cache with TTL
 - **Rate Limiting**: Per-domain token bucket
