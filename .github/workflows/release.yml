@@ -1,0 +1,85 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+      - name: Run tests
+        run: go test ./... -v -race -count=1
+
+  build:
+    name: Build
+    needs: test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - goos: linux
+            goarch: amd64
+            suffix: linux-amd64
+          - goos: linux
+            goarch: arm64
+            suffix: linux-arm64
+          - goos: darwin
+            goarch: amd64
+            suffix: darwin-amd64
+          - goos: darwin
+            goarch: arm64
+            suffix: darwin-arm64
+          - goos: windows
+            goarch: amd64
+            suffix: windows-amd64.exe
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+      - name: Build binary
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: ${{ matrix.goarch }}
+        run: |
+          go build -ldflags="-s -w -X main.version=${{ github.ref_name }}" -o paimon-mcp-fetch-${{ matrix.suffix }} ./cmd/paimon-mcp-fetch/
+      - name: Calculate checksum
+        run: |
+          sha256sum paimon-mcp-fetch-${{ matrix.suffix }} > paimon-mcp-fetch-${{ matrix.suffix }}.sha256
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: binary-${{ matrix.suffix }}
+          path: |
+            paimon-mcp-fetch-${{ matrix.suffix }}
+            paimon-mcp-fetch-${{ matrix.suffix }}.sha256
+
+  release:
+    name: Create Release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          pattern: binary-*
+          merge-multiple: true
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: artifacts/paimon-mcp-fetch-*
+          generate_release_notes: true
+          draft: false
+          prerelease: ${{ contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') || contains(github.ref_name, 'rc') }}
