@@ -12,7 +12,7 @@
 
 $ErrorActionPreference = "Stop"
 
-$Repo = "user/paimon-mcp-fetch"
+$Repo = "paimonchan/paimon-mcp-fetch"
 $BinaryName = "paimon-mcp-fetch"
 
 function Write-Info($msg) { Write-Host "[install] $msg" -ForegroundColor Cyan }
