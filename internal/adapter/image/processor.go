@@ -141,7 +141,11 @@ func (p *Processor) processSingle(
 		return nil, nil, fmt.Errorf("HTTP %d", resp.StatusCode)
 	}
 
-	data, err := io.ReadAll(io.LimitReader(resp.Body, 10*1024*1024)) // 10MB limit
+	maxBytes := opts.MaxBytes
+	if maxBytes <= 0 {
+		maxBytes = 10 * 1024 * 1024 // 10MB default
+	}
+	data, err := io.ReadAll(io.LimitReader(resp.Body, maxBytes+1))
 	if err != nil {
 		return nil, nil, err
 	}

@@ -57,16 +57,17 @@ type ImageProcessor interface {
 
 // ImageProcessOptions configures image processing.
 type ImageProcessOptions struct {
-	MaxCount     int
-	MaxWidth     int
-	MaxHeight    int
-	Quality      int
-	StartIndex   int
-	CrossOrigin  bool
-	SaveDir      string
-	OutputBase64 bool
-	SaveToFile   bool
-	Layout       string // "merged", "individual", "both"
+	MaxCount      int
+	MaxWidth      int
+	MaxHeight     int
+	Quality       int
+	StartIndex    int
+	CrossOrigin   bool
+	SaveDir       string
+	OutputBase64  bool
+	SaveToFile    bool
+	Layout        string // "merged", "individual", "both"
+	MaxBytes      int64  // max image size in bytes
 }
 
 // RobotsChecker validates URLs against robots.txt.
