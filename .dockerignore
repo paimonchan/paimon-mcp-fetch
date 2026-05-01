@@ -1,0 +1,35 @@
+# Git
+.git
+.gitignore
+
+# Build artifacts
+dist/
+*.exe
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test coverage
+*.out
+coverage.html
+
+# Documentation
+README.md
+TODO.md
+
+# Scripts
+install.ps1
+install.sh
+
+# Package manager manifests
+scoop/
+winget/
+homebrew/
+
+# GitHub Actions
+.github/

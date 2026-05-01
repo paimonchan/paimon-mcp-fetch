@@ -4,7 +4,7 @@ dist/
 
 # Go
 vendor/
-go.sum
+# go.sum should be committed for reproducible builds
 
 # IDE
 .vscode/
