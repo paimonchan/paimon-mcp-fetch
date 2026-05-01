@@ -13,6 +13,7 @@
     {
       "registryType": "mcpb",
       "identifier": "https://github.com/paimonchan/paimon-mcp-fetch/releases/download/v0.1.2/paimon-mcp-fetch-0.1.2-windows-amd64.zip",
+      "fileSha256": "379d7927a0329c22ec8524e430a27e4b5f2662842684aab1abb02da4695bc4d7",
       "transport": {
         "type": "stdio"
       },
