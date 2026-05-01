@@ -62,7 +62,10 @@ func (f *httpFetcher) Fetch(ctx context.Context, url string, opts domain.FetchOp
 
 	// Check status code
 	if resp.StatusCode >= 400 {
-		return nil, fmt.Errorf("%w: HTTP %d", domain.ErrFetchFailed, resp.StatusCode)
+		if resp.StatusCode >= 500 {
+			return nil, fmt.Errorf("%w: HTTP %d", domain.ErrHTTPServerError, resp.StatusCode)
+		}
+		return nil, fmt.Errorf("%w: HTTP %d", domain.ErrHTTPClientError, resp.StatusCode)
 	}
 
 	// Stream-based reading with size limit

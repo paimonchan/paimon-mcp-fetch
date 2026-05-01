@@ -116,9 +116,14 @@ func isRetryable(err error) bool {
 		return false // Actually, don't retry — it'll always be too large
 	}
 
-	// Retry fetch failures (network issues, 5xx, etc.)
-	if errors.Is(err, domain.ErrFetchFailed) {
+	// Retry server errors (5xx) and fetch failures (network issues)
+	if errors.Is(err, domain.ErrHTTPServerError) || errors.Is(err, domain.ErrFetchFailed) {
 		return true
+	}
+
+	// Don't retry client errors (4xx)
+	if errors.Is(err, domain.ErrHTTPClientError) {
+		return false
 	}
 
 	// Default: retry unknown errors (network hiccups)

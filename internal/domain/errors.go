@@ -16,6 +16,8 @@ var (
 	ErrTimeout             = errors.New("request timed out")
 	ErrTooManyRedirects    = errors.New("too many redirects")
 	ErrFetchFailed         = errors.New("fetch failed")
+	ErrHTTPClientError     = errors.New("HTTP client error") // 4xx, don't retry
+	ErrHTTPServerError     = errors.New("HTTP server error") // 5xx, may retry
 	ErrExtractionFailed    = errors.New("content extraction failed")
 	ErrNoContent           = errors.New("no content could be extracted")
 )
