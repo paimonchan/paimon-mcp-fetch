@@ -122,9 +122,10 @@
 - [ ] **4.3 Observability**
   - [ ] Request count, latency, error rate metrics
 
-- [ ] **4.4 Docker** (Optional alternative distribution)
-  - [ ] `Dockerfile` with multi-stage build
-  - [ ] Publish to GitHub Container Registry (`ghcr.io/user/paimon-mcp-fetch`)
+- [x] **4.4 Docker** (Optional alternative distribution)
+  - [x] `Dockerfile` with multi-stage build (distroless base)
+  - [x] GitHub Actions: build & push on release
+  - [x] Publish to GitHub Container Registry (`ghcr.io/paimonchan/paimon-mcp-fetch`)
 
 - [ ] **4.5 Submit False Positive Reports** (Last resort — no budget for code signing)
   - [ ] Submit to Microsoft Defender (https://www.microsoft.com/en-us/wdsi/filesubmission)
@@ -143,6 +144,7 @@
 
 ## Current Status
 
-**Phase:** 3 — **COMPLETE** ✅  
+**Phase:** 4 (partial) — **Docker complete** ✅  
 **All tests passing across 7 packages**  
-**Next:** Phase 4 — Advanced (JS rendering, disk cache, observability, Docker, AV reports)
+**Repo:** https://github.com/paimonchan/paimon-mcp-fetch (public)  
+**Next:** Disk cache, observability, JS rendering (on demand)
