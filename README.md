@@ -229,9 +229,9 @@ Some antivirus software may flag unsigned Go binaries as a false positive. This 
 
 ## MCP Tool Schema
 
-### `fetch`
+### `fetch_webpage`
 
-Fetches a URL and returns content as markdown.
+Fetch and extract the main content from any webpage URL. Converts HTML to clean markdown.
 
 ```json
 {
