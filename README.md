@@ -65,12 +65,12 @@ One-line install that auto-detects your OS and architecture:
 
 **Windows (PowerShell)**:
 ```powershell
-irm https://raw.githubusercontent.com/user/paimon-mcp-fetch/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/paimonchan/paimon-mcp-fetch/main/install.ps1 | iex
 ```
 
 **macOS / Linux (Bash)**:
 ```bash
-curl -fsSL https://raw.githubusercontent.com/user/paimon-mcp-fetch/main/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/paimonchan/paimon-mcp-fetch/main/install.sh | sh
 ```
 
 > ⚠️ Windows users: Your antivirus may flag the downloaded `.exe`. See our [AV explanation & workarounds](#-windows-antivirus-warning).
@@ -97,17 +97,33 @@ cd paimon-mcp-fetch
 go build -ldflags="-s -w" -o paimon-mcp-fetch ./cmd/paimon-mcp-fetch/
 ```
 
-**Why build yourself?** You can verify the source code and produce a byte-for-byte identical binary to our releases. See [Reproducible Builds](https://github.com/paimonchan/paimon-mcp-fetch/blob/main/.github/workflows/build.yml).
+**Why build yourself?** You can verify the source code and produce a byte-for-byte identical binary to our releases. See [Reproducible Builds](https://github.com/paimonchan/paimon-mcp-fetch/blob/main/.github/workflows/release.yml).
 
 ---
 
-### Option 6: Docker (Future — No AV Issues)
+### Option 6: Docker (No AV Issues)
 
-Coming in a future release. Will run entirely in a container with no local binary.
+Run entirely in a container — no local binary, no antivirus warnings.
 
+**Pull and run:**
 ```bash
-docker run -i --rm ghcr.io/user/paimon-mcp-fetch:latest
+docker run -i --rm ghcr.io/paimonchan/paimon-mcp-fetch:latest
 ```
+
+**MCP client config (OpenCode):**
+```json
+{
+  "mcp": {
+    "fetch": {
+      "type": "local",
+      "command": ["docker", "run", "-i", "--rm", "ghcr.io/paimonchan/paimon-mcp-fetch:latest"],
+      "enabled": true
+    }
+  }
+}
+```
+
+> Images are published automatically on every release to [GitHub Container Registry](https://github.com/paimonchan/paimon-mcp-fetch/pkgs/container/paimon-mcp-fetch).
 
 ---
 
