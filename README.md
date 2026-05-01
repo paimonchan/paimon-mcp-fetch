@@ -50,7 +50,7 @@ brew install paimon-mcp-fetch
 If you already have [Go](https://go.dev/dl/) installed, this is the **safest method** with zero AV issues:
 
 ```bash
-go install github.com/user/paimon-mcp-fetch/cmd/paimon-mcp-fetch@latest
+go install github.com/paimonchan/paimon-mcp-fetch/cmd/paimon-mcp-fetch@latest
 ```
 
 The binary will be placed in your `$(go env GOPATH)/bin`. Make sure this directory is in your PATH.
@@ -79,7 +79,7 @@ curl -fsSL https://raw.githubusercontent.com/user/paimon-mcp-fetch/main/install.
 
 ### Option 4: Download from GitHub Releases
 
-Download the pre-built binary for your OS from [GitHub Releases](https://github.com/user/paimon-mcp-fetch/releases).
+Download the pre-built binary for your OS from [GitHub Releases](https://github.com/paimonchan/paimon-mcp-fetch/releases).
 
 Extract and place it somewhere in your PATH.
 
@@ -92,12 +92,12 @@ Extract and place it somewhere in your PATH.
 Requires [Go 1.22+](https://go.dev/dl/).
 
 ```bash
-git clone https://github.com/user/paimon-mcp-fetch
+git clone https://github.com/paimonchan/paimon-mcp-fetch
 cd paimon-mcp-fetch
 go build -ldflags="-s -w" -o paimon-mcp-fetch ./cmd/paimon-mcp-fetch/
 ```
 
-**Why build yourself?** You can verify the source code and produce a byte-for-byte identical binary to our releases. See [Reproducible Builds](https://github.com/user/paimon-mcp-fetch/blob/main/.github/workflows/build.yml).
+**Why build yourself?** You can verify the source code and produce a byte-for-byte identical binary to our releases. See [Reproducible Builds](https://github.com/paimonchan/paimon-mcp-fetch/blob/main/.github/workflows/build.yml).
 
 ---
 

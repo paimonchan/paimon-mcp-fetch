@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/user/paimon-mcp-fetch/internal/domain"
+	"github.com/paimonchan/paimon-mcp-fetch/internal/domain"
 )
 
 func TestIsAllowed_Allow(t *testing.T) {

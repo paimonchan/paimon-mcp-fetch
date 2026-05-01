@@ -1,4 +1,4 @@
-module github.com/user/paimon-mcp-fetch
+module github.com/paimonchan/paimon-mcp-fetch
 
 go 1.26.1
 

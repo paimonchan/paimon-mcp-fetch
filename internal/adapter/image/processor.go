@@ -19,7 +19,7 @@ import (
 	"time"
 
 	"github.com/disintegration/imaging"
-	"github.com/user/paimon-mcp-fetch/internal/domain"
+	"github.com/paimonchan/paimon-mcp-fetch/internal/domain"
 )
 
 // Processor implements domain.ImageProcessor.

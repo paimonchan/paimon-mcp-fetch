@@ -7,7 +7,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/user/paimon-mcp-fetch/internal/domain"
+	"github.com/paimonchan/paimon-mcp-fetch/internal/domain"
 )
 
 // httpFetcher implements domain.ContentFetcher using net/http.

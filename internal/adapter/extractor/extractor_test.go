@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/user/paimon-mcp-fetch/internal/domain"
+	"github.com/paimonchan/paimon-mcp-fetch/internal/domain"
 )
 
 func TestExtract_SimpleArticle(t *testing.T) {

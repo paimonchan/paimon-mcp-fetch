@@ -6,7 +6,7 @@ import (
 	"net"
 	"testing"
 
-	"github.com/user/paimon-mcp-fetch/internal/domain"
+	"github.com/paimonchan/paimon-mcp-fetch/internal/domain"
 )
 
 func TestSSRFGuard_ValidURL(t *testing.T) {

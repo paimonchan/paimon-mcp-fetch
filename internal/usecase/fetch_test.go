@@ -4,7 +4,7 @@ package usecase
 import (
 	"testing"
 
-	"github.com/user/paimon-mcp-fetch/internal/domain"
+	"github.com/paimonchan/paimon-mcp-fetch/internal/domain"
 )
 
 func TestPaginate(t *testing.T) {

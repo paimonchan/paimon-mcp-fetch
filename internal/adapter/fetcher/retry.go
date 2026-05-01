@@ -8,7 +8,7 @@ import (
 	"math"
 	"time"
 
-	"github.com/user/paimon-mcp-fetch/internal/domain"
+	"github.com/paimonchan/paimon-mcp-fetch/internal/domain"
 )
 
 // retryFetcher wraps a ContentFetcher with retry logic.

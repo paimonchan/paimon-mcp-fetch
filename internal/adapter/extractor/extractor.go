@@ -11,7 +11,7 @@ import (
 	"codeberg.org/readeck/go-readability/v2"
 	"github.com/JohannesKaufmann/html-to-markdown/v2"
 	"github.com/PuerkitoBio/goquery"
-	"github.com/user/paimon-mcp-fetch/internal/domain"
+	"github.com/paimonchan/paimon-mcp-fetch/internal/domain"
 )
 
 // readabilityExtractor implements domain.ContentExtractor using go-readability

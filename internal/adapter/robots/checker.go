@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/temoto/robotstxt"
-	"github.com/user/paimon-mcp-fetch/internal/domain"
+	"github.com/paimonchan/paimon-mcp-fetch/internal/domain"
 )
 
 const (

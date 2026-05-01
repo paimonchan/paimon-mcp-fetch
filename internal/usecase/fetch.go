@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/user/paimon-mcp-fetch/internal/domain"
+	"github.com/paimonchan/paimon-mcp-fetch/internal/domain"
 )
 
 // RateLimiter defines the interface for rate limiting.
@@ -260,7 +260,7 @@ func (uc *FetchUseCase) buildResultFromCache(entry *domain.CacheEntry, req domai
 
 // defaultUserAgent returns the default user agent string.
 func (uc *FetchUseCase) defaultUserAgent() string {
-	return "ModelContextProtocol/1.0 (Autonomous; +https://github.com/user/paimon-mcp-fetch)"
+	return "ModelContextProtocol/1.0 (Autonomous; +https://github.com/paimonchan/paimon-mcp-fetch)"
 }
 
 // parseOrigin extracts the origin (scheme + host) from a URL.

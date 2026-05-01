@@ -8,8 +8,8 @@ import (
 
 	"github.com/mark3labs/mcp-go/mcp"
 	"github.com/mark3labs/mcp-go/server"
-	"github.com/user/paimon-mcp-fetch/internal/domain"
-	"github.com/user/paimon-mcp-fetch/internal/usecase"
+	"github.com/paimonchan/paimon-mcp-fetch/internal/domain"
+	"github.com/paimonchan/paimon-mcp-fetch/internal/usecase"
 )
 
 // Server wires up the MCP protocol with the fetch use case.

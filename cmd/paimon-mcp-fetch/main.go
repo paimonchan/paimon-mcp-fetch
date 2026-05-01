@@ -9,16 +9,16 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/user/paimon-mcp-fetch/internal/adapter/cache"
-	"github.com/user/paimon-mcp-fetch/internal/adapter/extractor"
-	"github.com/user/paimon-mcp-fetch/internal/adapter/fetcher"
-	"github.com/user/paimon-mcp-fetch/internal/adapter/image"
-	"github.com/user/paimon-mcp-fetch/internal/adapter/mcpserver"
-	"github.com/user/paimon-mcp-fetch/internal/adapter/ratelimit"
-	"github.com/user/paimon-mcp-fetch/internal/adapter/robots"
-	"github.com/user/paimon-mcp-fetch/internal/config"
-	"github.com/user/paimon-mcp-fetch/internal/domain"
-	"github.com/user/paimon-mcp-fetch/internal/usecase"
+	"github.com/paimonchan/paimon-mcp-fetch/internal/adapter/cache"
+	"github.com/paimonchan/paimon-mcp-fetch/internal/adapter/extractor"
+	"github.com/paimonchan/paimon-mcp-fetch/internal/adapter/fetcher"
+	"github.com/paimonchan/paimon-mcp-fetch/internal/adapter/image"
+	"github.com/paimonchan/paimon-mcp-fetch/internal/adapter/mcpserver"
+	"github.com/paimonchan/paimon-mcp-fetch/internal/adapter/ratelimit"
+	"github.com/paimonchan/paimon-mcp-fetch/internal/adapter/robots"
+	"github.com/paimonchan/paimon-mcp-fetch/internal/config"
+	"github.com/paimonchan/paimon-mcp-fetch/internal/domain"
+	"github.com/paimonchan/paimon-mcp-fetch/internal/usecase"
 )
 
 func main() {

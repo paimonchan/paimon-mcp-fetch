@@ -7,7 +7,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/user/paimon-mcp-fetch/internal/domain"
+	"github.com/paimonchan/paimon-mcp-fetch/internal/domain"
 )
 
 // ssrfGuard validates URLs against SSRF policies.

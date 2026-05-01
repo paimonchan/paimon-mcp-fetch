@@ -1,7 +1,7 @@
 # Created with WinGet Releaser v2 using Komac v1.11.0
 # yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.5.0.schema.json
 
-PackageIdentifier: user.paimon-mcp-fetch
+PackageIdentifier: paimonchan.paimon-mcp-fetch
 PackageVersion: 0.1.0
 InstallerLocale: en-US
 InstallerType: portable
@@ -10,7 +10,7 @@ Commands:
 ReleaseDate: 2026-05-01
 Installers:
   - Architecture: x64
-    InstallerUrl: https://github.com/user/paimon-mcp-fetch/releases/download/v0.1.0/paimon-mcp-fetch-windows-amd64.exe
+    InstallerUrl: https://github.com/paimonchan/paimon-mcp-fetch/releases/download/v0.1.0/paimon-mcp-fetch-windows-amd64.exe
     InstallerSha256: PLACEHOLDER_SHA256
 ManifestType: installer
 ManifestVersion: 1.5.0
