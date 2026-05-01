@@ -5,6 +5,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"fmt"
+	"net/url"
 	"time"
 
 	"github.com/paimonchan/paimon-mcp-fetch/internal/domain"
@@ -24,6 +25,7 @@ type FetchUseCase struct {
 	cache       domain.CacheStore      // optional, can be nil
 	limiter     RateLimiter            // optional, can be nil
 	policy      domain.SizePolicy
+	cacheTTL    time.Duration
 }
 
 // NewFetchUseCase creates a FetchUseCase with constructor injection.
@@ -35,7 +37,11 @@ func NewFetchUseCase(
 	cache domain.CacheStore,
 	limiter RateLimiter,
 	policy domain.SizePolicy,
+	cacheTTL time.Duration,
 ) *FetchUseCase {
+	if cacheTTL <= 0 {
+		cacheTTL = 5 * time.Minute
+	}
 	return &FetchUseCase{
 		fetcher:   fetcher,
 		extractor: extractor,
@@ -44,6 +50,7 @@ func NewFetchUseCase(
 		cache:     cache,
 		limiter:   limiter,
 		policy:    policy,
+		cacheTTL:  cacheTTL,
 	}
 }
 
@@ -69,7 +76,7 @@ func (uc *FetchUseCase) Fetch(ctx context.Context, req domain.FetchRequest) (*do
 		entry, found, err := uc.cache.Get(ctx, cacheKey)
 		if err == nil && found {
 			// Cache hit — extract from cached data
-			return uc.buildResultFromCache(entry, req)
+			return uc.buildResultFromCache(ctx, entry, req)
 		}
 	}
 
@@ -127,6 +134,7 @@ func (uc *FetchUseCase) Fetch(ctx context.Context, req domain.FetchRequest) (*do
 			OutputBase64: req.Images.OutputBase64,
 			SaveToFile:   req.Images.SaveToFile,
 			Layout:       req.Images.Layout,
+			MaxBytes:     uc.policy.MaxImageBytes,
 		}
 		baseOrigin := ""
 		if u, err := parseOrigin(resp.FinalURL); err == nil {
@@ -154,7 +162,7 @@ func (uc *FetchUseCase) Fetch(ctx context.Context, req domain.FetchRequest) (*do
 			ContentType: resp.ContentType,
 			FinalURL:    resp.FinalURL,
 		}
-		_ = uc.cache.Set(ctx, cacheKey, entry, 5*time.Minute) // best-effort
+		_ = uc.cache.Set(ctx, cacheKey, entry, uc.cacheTTL) // best-effort
 	}
 
 	// 9. Return result
@@ -234,9 +242,9 @@ func (uc *FetchUseCase) cacheKey(url string) string {
 }
 
 // buildResultFromCache rebuilds a result from cached data.
-func (uc *FetchUseCase) buildResultFromCache(entry *domain.CacheEntry, req domain.FetchRequest) (*domain.FetchResult, error) {
+func (uc *FetchUseCase) buildResultFromCache(ctx context.Context, entry *domain.CacheEntry, req domain.FetchRequest) (*domain.FetchResult, error) {
 	// Re-extract from cached body
-	extracted, err := uc.extractor.Extract(context.Background(), string(entry.Body), entry.FinalURL)
+	extracted, err := uc.extractor.Extract(ctx, string(entry.Body), entry.FinalURL)
 	if err != nil {
 		return nil, err
 	}
@@ -265,7 +273,12 @@ func (uc *FetchUseCase) defaultUserAgent() string {
 
 // parseOrigin extracts the origin (scheme + host) from a URL.
 func parseOrigin(urlStr string) (string, error) {
-	// Simple extraction — in production use net/url
-	// This is a placeholder for the MVP
-	return urlStr, nil
+	u, err := url.Parse(urlStr)
+	if err != nil {
+		return "", err
+	}
+	if u.Scheme == "" || u.Host == "" {
+		return "", fmt.Errorf("invalid URL: missing scheme or host")
+	}
+	return u.Scheme + "://" + u.Host, nil
 }

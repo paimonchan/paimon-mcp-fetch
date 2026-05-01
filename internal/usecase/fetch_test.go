@@ -65,7 +65,7 @@ func TestRemainingImages(t *testing.T) {
 }
 
 func TestValidateRequest(t *testing.T) {
-	uc := NewFetchUseCase(nil, nil, nil, nil, nil, nil, domain.DefaultSizePolicy())
+	uc := NewFetchUseCase(nil, nil, nil, nil, nil, nil, domain.DefaultSizePolicy(), 0)
 
 	// Valid request
 	err := uc.validateRequest(&domain.FetchRequest{
