@@ -1,0 +1,56 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.paimonchan/paimon-mcp-fetch",
+  "description": "Fetch web pages with SSRF protection. Returns clean, readable markdown from any URL.",
+  "title": "Web Page Fetcher",
+  "websiteUrl": "https://github.com/paimonchan/paimon-mcp-fetch#installation",
+  "repository": {
+    "url": "https://github.com/paimonchan/paimon-mcp-fetch",
+    "source": "github"
+  },
+  "version": "0.1.2",
+  "packages": [
+    {
+      "registryType": "mcpb",
+      "identifier": "https://github.com/paimonchan/paimon-mcp-fetch/releases/download/v0.1.2/paimon-mcp-fetch-0.1.2-windows-amd64.zip",
+      "transport": {
+        "type": "stdio"
+      },
+      "environmentVariables": [
+        {
+          "name": "PAIMON_MCP_FETCH_MAX_LENGTH",
+          "description": "Maximum content length to return in characters",
+          "default": "50000",
+          "isRequired": false
+        },
+        {
+          "name": "PAIMON_MCP_FETCH_TIMEOUT",
+          "description": "HTTP request timeout in seconds",
+          "default": "30",
+          "isRequired": false
+        },
+        {
+          "name": "PAIMON_MCP_FETCH_DISABLE_ROBOTS",
+          "description": "Disable robots.txt checking (use with caution)",
+          "default": "false",
+          "isRequired": false
+        },
+        {
+          "name": "PAIMON_MCP_FETCH_USER_AGENT",
+          "description": "Custom User-Agent string for HTTP requests",
+          "default": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+          "isRequired": false
+        }
+      ]
+    }
+  ],
+  "_meta": {
+    "io.modelcontextprotocol.registry/publisher-provided": {
+      "com.github": {
+        "serverDisplayName": "paimon-mcp-fetch",
+        "category": "Web / Content",
+        "tags": ["web-fetcher", "content-extraction", "readability", "ssrf-protection", "go", "single-binary"]
+      }
+    }
+  }
+}

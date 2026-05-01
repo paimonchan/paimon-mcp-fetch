@@ -131,16 +131,113 @@ PAIMON_MCP_FETCH_JS_RENDER_ENABLED=true ./paimon-mcp-fetch
 
 ## Supported AI Assistants
 
-Works with any MCP-compatible client:
+Works with any MCP-compatible client. Add the configuration below to your client's config file.
 
-| Client | Config File |
-|--------|-------------|
-| OpenCode | `~/.config/opencode/opencode.json` |
-| Claude Desktop | `claude_desktop_config.json` |
-| Cursor | `.cursor/mcp.json` |
-| Cline | `.cline/mcp.json` |
-| Windsurf | `.windsurf/mcp.json` |
-| VS Code | `mcp.json` |
+### OpenCode
+
+**Config file:** `~/.config/opencode/opencode.json`
+
+```json
+{
+  "mcp": {
+    "paimon-mcp-fetch": {
+      "type": "local",
+      "command": ["paimon-mcp-fetch"],
+      "enabled": true
+    }
+  }
+}
+```
+
+### Claude Desktop
+
+**Config file:** `claude_desktop_config.json`
+
+```json
+{
+  "mcpServers": {
+    "paimon-mcp-fetch": {
+      "command": "paimon-mcp-fetch"
+    }
+  }
+}
+```
+
+### Cursor
+
+**Config file:** `.cursor/mcp.json` (project) or `~/.cursor/mcp.json` (global)
+
+```json
+{
+  "mcpServers": {
+    "paimon-mcp-fetch": {
+      "command": "paimon-mcp-fetch",
+      "env": {}
+    }
+  }
+}
+```
+
+### VS Code (GitHub Copilot)
+
+**Config file:** `.vscode/mcp.json` (workspace) or user settings
+
+```json
+{
+  "servers": {
+    "paimon-mcp-fetch": {
+      "type": "stdio",
+      "command": "paimon-mcp-fetch"
+    }
+  }
+}
+```
+
+### Cline
+
+**Config file:** `.cline/mcp.json`
+
+```json
+{
+  "mcpServers": {
+    "paimon-mcp-fetch": {
+      "command": "paimon-mcp-fetch"
+    }
+  }
+}
+```
+
+### Windsurf
+
+**Config file:** `.windsurf/mcp.json`
+
+```json
+{
+  "mcpServers": {
+    "paimon-mcp-fetch": {
+      "command": "paimon-mcp-fetch"
+    }
+  }
+}
+```
+
+### With Custom Configuration
+
+All clients support environment variables. Example with custom timeout and cache:
+
+```json
+{
+  "mcpServers": {
+    "paimon-mcp-fetch": {
+      "command": "paimon-mcp-fetch",
+      "env": {
+        "PAIMON_MCP_FETCH_TIMEOUT_MS": "30000",
+        "PAIMON_MCP_FETCH_CACHE_TTL_SECS": "600"
+      }
+    }
+  }
+}
+```
 
 ---
 
