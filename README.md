@@ -8,6 +8,7 @@
 - **Web Content Extraction**: Fetches web pages and converts HTML to markdown
 - **Article Title Extraction**: Extracts and displays article titles
 - **Image Processing** (optional, `go build -tags image`): Download, resize, merge, and optimize images
+- **JS Rendering** (optional, `go build -tags jsrender`): Headless Chrome for JS-heavy sites (Yahoo Finance, XE.com, etc.)
 - **SSRF Protection**: 7-layer defense in depth against server-side request forgery
 - **Robots.txt Compliance**: Respects robots.txt by default (fail-open with timeout)
 - **Pagination Support**: Read large pages in chunks via `start_index`
@@ -226,8 +227,38 @@ After installation, add to your MCP client config:
 | `PAIMON_MCP_FETCH_RATE_LIMIT_PER_SECOND` | 1.0 | Requests per second per domain |
 | `PAIMON_MCP_FETCH_RATE_LIMIT_BURST` | 3 | Max burst size per domain |
 | `PAIMON_MCP_FETCH_RETRY_MAX_ATTEMPTS` | 3 | Max retry attempts for transient errors |
+| `PAIMON_MCP_FETCH_JS_RENDER_ENABLED` | false | Enable headless Chrome JS rendering |
 | `PAIMON_MCP_FETCH_RETRY_BASE_DELAY_MS` | 500 | Base retry delay (exponential backoff) |
 | `PAIMON_MCP_FETCH_RETRY_MAX_DELAY_MS` | 10000 | Max retry delay cap |
+
+---
+
+## Optional Features
+
+### Image Processing (`-tags image`)
+
+Compile with image support:
+```bash
+go build -tags image -o paimon-mcp-fetch ./cmd/paimon-mcp-fetch/
+```
+
+### JS Rendering (`-tags jsrender`)
+
+For JS-heavy sites (Yahoo Finance, XE.com, Google Finance):
+
+**Requirements:** Chrome or Chromium must be installed.
+
+**Build:**
+```bash
+go build -tags jsrender -o paimon-mcp-fetch ./cmd/paimon-mcp-fetch/
+```
+
+**Enable via env var:**
+```bash
+PAIMON_MCP_FETCH_JS_RENDER_ENABLED=true paimon-mcp-fetch
+```
+
+**Note:** JS rendering is slower (~3-5s per page) but can extract data from SPAs and dynamic sites that static fetch cannot.
 
 ---
 
