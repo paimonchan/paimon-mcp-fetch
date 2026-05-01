@@ -224,8 +224,8 @@ After installation, add to your MCP client config:
 | `PAIMON_MCP_FETCH_CACHE_TTL_SECS` | 300 | Cache TTL in seconds |
 | `PAIMON_MCP_FETCH_CACHE_MAX_ENTRIES` | 100 | Maximum cache entries |
 | `PAIMON_MCP_FETCH_RATE_LIMIT_ENABLED` | true | Enable per-domain rate limiting |
-| `PAIMON_MCP_FETCH_RATE_LIMIT_PER_SECOND` | 1.0 | Requests per second per domain |
-| `PAIMON_MCP_FETCH_RATE_LIMIT_BURST` | 3 | Max burst size per domain |
+| `PAIMON_MCP_FETCH_RATE_LIMIT_PER_SECOND` | 5.0 | Requests per second per domain |
+| `PAIMON_MCP_FETCH_RATE_LIMIT_BURST` | 10 | Max burst size per domain |
 | `PAIMON_MCP_FETCH_RETRY_MAX_ATTEMPTS` | 3 | Max retry attempts for transient errors |
 | `PAIMON_MCP_FETCH_JS_RENDER_ENABLED` | false | Enable headless Chrome JS rendering |
 | `PAIMON_MCP_FETCH_RETRY_BASE_DELAY_MS` | 500 | Base retry delay (exponential backoff) |

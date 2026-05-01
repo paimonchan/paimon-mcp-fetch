@@ -75,8 +75,8 @@ func Default() *Config {
 		CacheMax:     100,
 
 		RateLimitEnabled:   true,
-		RateLimitPerSecond: 1.0,
-		RateLimitBurst:     3,
+		RateLimitPerSecond: 5.0,
+		RateLimitBurst:     10,
 
 		RetryMaxAttempts: 3,
 		RetryBaseDelayMS: 500,
