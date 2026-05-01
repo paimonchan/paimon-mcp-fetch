@@ -231,7 +231,18 @@ Some antivirus software may flag unsigned Go binaries as a false positive. This 
 
 ### `fetch_webpage`
 
-Fetch and extract the main content from any webpage URL. Converts HTML to clean markdown.
+Fetch and extract content from any webpage URL, returning clean structured markdown. Uses the Readability algorithm to identify the main article body.
+
+**When to use `fetch_webpage` over other fetch tools:**
+
+| Scenario | Use `fetch_webpage` | Use basic text fetch |
+|----------|---------------------|----------------------|
+| Need structured output (headings, lists, tables, code) | ✅ Markdown preserves structure | ❌ Plain text loses formatting |
+| Reading articles, docs, blog posts | ✅ Readability extracts main content | ⚠️ May include navigation/ads |
+| Need images from the page | ✅ Built-in image extraction | ❌ No image support |
+| Long articles with pagination | ✅ `startIndex` for pagination | ⚠️ Limited pagination |
+| JS-heavy sites (SPAs, dynamic content) | ✅ Optional JS rendering | ❌ Static HTML only |
+| Quick plain text extraction | ⚠️ Overkill but works | ✅ Simpler, faster |
 
 ```json
 {
