@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d1117;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#161b22;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#58a6ff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3fb950;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="640" fill="url(#bg)"/>
+
+  <!-- Grid pattern -->
+  <g opacity="0.05">
+    <line x1="0" y1="0" x2="1280" y2="640" stroke="#fff" stroke-width="1"/>
+    <line x1="1280" y1="0" x2="0" y2="640" stroke="#fff" stroke-width="1"/>
+    <line x1="640" y1="0" x2="640" y2="640" stroke="#fff" stroke-width="1"/>
+    <line x1="0" y1="320" x2="1280" y2="320" stroke="#fff" stroke-width="1"/>
+  </g>
+
+  <!-- Left accent line -->
+  <rect x="0" y="0" width="8" height="640" fill="url(#accent)"/>
+
+  <!-- Main content area -->
+  <g transform="translate(100, 180)">
+    <!-- Title -->
+    <text x="0" y="0" font-family="system-ui, -apple-system, sans-serif" font-size="56" font-weight="700" fill="#ffffff">
+      paimon-mcp-fetch
+    </text>
+
+    <!-- Subtitle -->
+    <text x="0" y="70" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="400" fill="#8b949e">
+      Web Page Fetcher for AI Assistants
+    </text>
+
+    <!-- Divider -->
+    <rect x="0" y="100" width="200" height="4" fill="url(#accent)" rx="2"/>
+
+    <!-- Features -->
+    <text x="0" y="160" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#58a6ff">
+      ✓ SSRF Protection    ✓ Readability Algorithm    ✓ Single Binary
+    </text>
+    <text x="0" y="200" font-family="system-ui, -apple-system, sans-serif" font-size="22" fill="#58a6ff">
+      ✓ ~5ms Startup    ✓ ~10MB RAM    ✓ Zero Runtime Dependencies
+    </text>
+
+    <!-- Go badge -->
+    <g transform="translate(0, 260)">
+      <rect x="0" y="0" width="100" height="32" rx="16" fill="#00add8"/>
+      <text x="50" y="21" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#ffffff" text-anchor="middle">
+        Go 1.26+
+      </text>
+    </g>
+
+    <!-- MCP badge -->
+    <g transform="translate(120, 260)">
+      <rect x="0" y="0" width="120" height="32" rx="16" fill="#238636"/>
+      <text x="60" y="21" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="600" fill="#ffffff" text-anchor="middle">
+        MCP Server
+      </text>
+    </g>
+  </g>
+
+  <!-- Right side icon/visual -->
+  <g transform="translate(950, 200)">
+    <!-- Browser window -->
+    <rect x="0" y="0" width="250" height="180" rx="12" fill="#21262d" stroke="#30363d" stroke-width="2"/>
+
+    <!-- Window controls -->
+    <circle cx="24" cy="24" r="6" fill="#ff5f56"/>
+    <circle cx="44" cy="24" r="6" fill="#ffbd2e"/>
+    <circle cx="64" cy="24" r="6" fill="#27c93f"/>
+
+    <!-- URL bar -->
+    <rect x="16" y="44" width="218" height="28" rx="6" fill="#0d1117"/>
+    <text x="28" y="63" font-family="monospace" font-size="12" fill="#8b949e">https://example.com</text>
+
+    <!-- Content lines -->
+    <rect x="16" y="88" width="180" height="8" rx="4" fill="#58a6ff" opacity="0.6"/>
+    <rect x="16" y="104" width="200" height="6" rx="3" fill="#8b949e" opacity="0.4"/>
+    <rect x="16" y="116" width="160" height="6" rx="3" fill="#8b949e" opacity="0.4"/>
+    <rect x="16" y="128" width="190" height="6" rx="3" fill="#8b949e" opacity="0.4"/>
+    <rect x="16" y="148" width="140" height="6" rx="3" fill="#8b949e" opacity="0.3"/>
+    <rect x="16" y="160" width="170" height="6" rx="3" fill="#8b949e" opacity="0.3"/>
+
+    <!-- Arrow pointing down -->
+    <path d="M 125 190 L 125 220 L 115 210 M 125 220 L 135 210" stroke="#3fb950" stroke-width="3" fill="none"/>
+
+    <!-- Markdown output -->
+    <rect x="20" y="230" width="210" height="60" rx="8" fill="#0d1117" stroke="#3fb950" stroke-width="1"/>
+    <text x="32" y="250" font-family="monospace" font-size="10" fill="#3fb950"># Clean Markdown Output</text>
+    <text x="32" y="266" font-family="monospace" font-size="10" fill="#8b949e">Structured, readable, AI-ready</text>
+    <text x="32" y="282" font-family="monospace" font-size="10" fill="#8b949e">✓ Headings ✓ Lists ✓ Code</text>
+  </g>
+
+  <!-- Bottom tagline -->
+  <text x="640" y="580" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="400" fill="#8b949e" text-anchor="middle">
+    github.com/paimonchan/paimon-mcp-fetch
+  </text>
+</svg>
