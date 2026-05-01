@@ -266,9 +266,9 @@ func (uc *FetchUseCase) buildResultFromCache(ctx context.Context, entry *domain.
 	}, nil
 }
 
-// defaultUserAgent returns the default user agent string.
+// defaultUserAgent returns a browser-like user agent to avoid anti-bot blocks.
 func (uc *FetchUseCase) defaultUserAgent() string {
-	return "ModelContextProtocol/1.0 (Autonomous; +https://github.com/paimonchan/paimon-mcp-fetch)"
+	return "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 }
 
 // parseOrigin extracts the origin (scheme + host) from a URL.

@@ -32,7 +32,7 @@ type SizePolicy struct {
 // DefaultSizePolicy returns the default size policy.
 func DefaultSizePolicy() SizePolicy {
 	return SizePolicy{
-		MaxHTMLBytes:  2 * 1024 * 1024,
+		MaxHTMLBytes:  10 * 1024 * 1024, // 10MB for JS-heavy finance sites
 		MaxImageBytes: 10 * 1024 * 1024,
 		MaxRedirects:  5,
 		TimeoutMS:     12000,

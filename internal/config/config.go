@@ -59,7 +59,7 @@ func Default() *Config {
 
 		TimeoutMS:     12000,
 		MaxRedirects:  5,
-		MaxHTMLBytes:  2 * 1024 * 1024,
+		MaxHTMLBytes:  10 * 1024 * 1024,
 		MaxImageBytes: 10 * 1024 * 1024,
 		UserAgent:     "ModelContextProtocol/1.0 (Autonomous; +https://github.com/paimonchan/paimon-mcp-fetch)",
 
