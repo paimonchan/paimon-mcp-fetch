@@ -24,6 +24,9 @@ type Config struct {
 	// SSRF
 	DisableSSRFGuard bool
 
+	// JS Rendering
+	JSRenderEnabled bool
+
 	// Cache
 	CacheEnabled bool
 	CacheTTL     time.Duration
@@ -64,6 +67,8 @@ func Default() *Config {
 		UserAgent:     "ModelContextProtocol/1.0 (Autonomous; +https://github.com/paimonchan/paimon-mcp-fetch)",
 
 		DisableSSRFGuard: false,
+
+		JSRenderEnabled: false,
 
 		CacheEnabled: true,
 		CacheTTL:     5 * time.Minute,
@@ -109,6 +114,9 @@ func Load() *Config {
 	}
 	if v := getBool("DISABLE_SSRF"); v != nil {
 		cfg.DisableSSRFGuard = *v
+	}
+	if v := getBool("JS_RENDER_ENABLED"); v != nil {
+		cfg.JSRenderEnabled = *v
 	}
 	if v := getBool("CACHE_ENABLED"); v != nil {
 		cfg.CacheEnabled = *v

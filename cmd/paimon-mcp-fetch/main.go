@@ -13,6 +13,7 @@ import (
 	"github.com/paimonchan/paimon-mcp-fetch/internal/adapter/extractor"
 	"github.com/paimonchan/paimon-mcp-fetch/internal/adapter/fetcher"
 	"github.com/paimonchan/paimon-mcp-fetch/internal/adapter/image"
+	"github.com/paimonchan/paimon-mcp-fetch/internal/adapter/jsrender"
 	"github.com/paimonchan/paimon-mcp-fetch/internal/adapter/mcpserver"
 	"github.com/paimonchan/paimon-mcp-fetch/internal/adapter/ratelimit"
 	"github.com/paimonchan/paimon-mcp-fetch/internal/adapter/robots"
@@ -59,13 +60,19 @@ func main() {
 		MaxHTMLBytes:  cfg.MaxHTMLBytes,
 		MaxImageBytes: cfg.MaxImageBytes,
 	}
-	baseFetcher := fetcher.NewHTTPFetcher(fetchOpts, ssrfPolicy)
-	contentFetcher := fetcher.NewRetryFetcher(
-		baseFetcher,
-		cfg.RetryMaxAttempts,
-		time.Duration(cfg.RetryBaseDelayMS)*time.Millisecond,
-		time.Duration(cfg.RetryMaxDelayMS)*time.Millisecond,
-	)
+	var contentFetcher domain.ContentFetcher
+	if cfg.JSRenderEnabled {
+		logger.Info("JS rendering enabled via chromedp")
+		contentFetcher = jsrender.NewRenderer(time.Duration(cfg.TimeoutMS) * time.Millisecond)
+	} else {
+		baseFetcher := fetcher.NewHTTPFetcher(fetchOpts, ssrfPolicy)
+		contentFetcher = fetcher.NewRetryFetcher(
+			baseFetcher,
+			cfg.RetryMaxAttempts,
+			time.Duration(cfg.RetryBaseDelayMS)*time.Millisecond,
+			time.Duration(cfg.RetryMaxDelayMS)*time.Millisecond,
+		)
+	}
 	contentExtractor := extractor.NewReadabilityExtractor()
 	robotsChecker := robots.NewChecker()
 
