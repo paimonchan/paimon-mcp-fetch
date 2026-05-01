@@ -1,0 +1,25 @@
+# Binaries
+dist/
+*.exe
+
+# Go
+vendor/
+go.sum
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test coverage
+*.out
+coverage.html
+
+# Downloads (image saves)
+Downloads/
