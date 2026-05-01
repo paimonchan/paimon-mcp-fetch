@@ -77,15 +77,29 @@ go build -ldflags="-s -w" -o paimon-mcp-fetch ./cmd/paimon-mcp-fetch/
 docker run -i --rm ghcr.io/paimonchan/paimon-mcp-fetch:latest
 ```
 
-### Option 5: Package Manager (Coming Soon)
+### Option 5: Package Manager
+
+**Homebrew (macOS/Linux):**
 
 ```bash
-scoop install paimon-mcp-fetch
-winget install paimon-mcp-fetch
+brew tap paimonchan/tap
 brew install paimon-mcp-fetch
 ```
 
-> Manifests are ready in `scoop/`, `winget/`, and `homebrew/` — pending submission to official repositories.
+**Scoop (Windows):**
+
+```powershell
+scoop bucket add paimonchan https://github.com/paimonchan/scoop-bucket
+scoop install paimon-mcp-fetch
+```
+
+**Winget (Windows):**
+
+```powershell
+winget install paimonchan.paimon-mcp-fetch
+```
+
+> Winget manifest is pending review: [microsoft/winget-pkgs#367457](https://github.com/microsoft/winget-pkgs/pull/367457)
 
 ### Windows Note
 
