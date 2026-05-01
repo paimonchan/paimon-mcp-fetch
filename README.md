@@ -1,175 +1,23 @@
 # paimon-mcp-fetch
 
-> Web content fetching MCP server built with Go.
-> Replaces `@kazuph/mcp-fetch` with a single binary, zero runtime dependencies.
+A fast, secure MCP server for fetching web content. Built with Go as a single binary with zero runtime dependencies.
 
-## Features
+[![Release](https://img.shields.io/github/v/release/paimonchan/paimon-mcp-fetch)](https://github.com/paimonchan/paimon-mcp-fetch/releases)
+[![Go Version](https://img.shields.io/badge/go-1.26+-blue.svg)](https://go.dev/dl/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
-- **Web Content Extraction**: Fetches web pages and converts HTML to markdown
-- **Article Title Extraction**: Extracts and displays article titles
-- **Image Processing** (optional, `go build -tags image`): Download, resize, merge, and optimize images
-- **JS Rendering** (optional, `go build -tags jsrender`): Headless Chrome for JS-heavy sites (Yahoo Finance, XE.com, etc.)
-- **SSRF Protection**: 7-layer defense in depth against server-side request forgery
-- **Robots.txt Compliance**: Disabled by default for better UX. Can be enabled via `security.ignoreRobotsTxt: false`
-- **Pagination Support**: Read large pages in chunks via `start_index`
-- **Caching**: In-memory LRU cache with TTL
-- **Rate Limiting**: Per-domain token bucket
-- **Clean Architecture**: Domain → UseCase → Adapter layers
-
-## Installation
-
-> **Note for Windows users:** Go binaries are often flagged by antivirus as false positives ([read why](#-windows-antivirus-warning)). For the smoothest experience, we recommend **Package Manager** or **`go install`** methods.
-
-### Option 1: Package Manager (Recommended — Best AV Compatibility)
-
-Installing via a package manager significantly reduces antivirus false positives because the installation comes through an audited, standardized pipeline.
-
-**Scoop** (Windows):
-```powershell
-scoop install paimon-mcp-fetch
-```
-
-**Winget** (Windows):
-```powershell
-winget install paimon-mcp-fetch
-```
-
-**Homebrew** (macOS / Linux):
-```bash
-brew install paimon-mcp-fetch
-```
-
-> Package manager manifests are included in this repository. To submit to official repositories, see:
-> - Scoop: `scoop/paimon-mcp-fetch.json`
-> - Winget: `winget/manifests/...`
-> - Homebrew: `homebrew/paimon-mcp-fetch.rb`
-
----
-
-### Option 2: `go install` (For Developers — AV-Safe)
-
-If you already have [Go](https://go.dev/dl/) installed, this is the **safest method** with zero AV issues:
+## Quick Start
 
 ```bash
+# Install via go install (recommended)
 go install github.com/paimonchan/paimon-mcp-fetch/cmd/paimon-mcp-fetch@latest
+
+# Or download from GitHub Releases
+# https://github.com/paimonchan/paimon-mcp-fetch/releases
 ```
 
-The binary will be placed in your `$(go env GOPATH)/bin`. Make sure this directory is in your PATH.
+Add to your MCP client config (e.g. `~/.config/opencode/opencode.json`):
 
-**Why this is safer:** Your antivirus sees `go.exe` (signed by Google) doing the work, not an unknown binary.
-
----
-
-### Option 3: Install Script (Easiest — May Trigger AV Warning)
-
-One-line install that auto-detects your OS and architecture:
-
-**Windows (PowerShell)**:
-```powershell
-irm https://raw.githubusercontent.com/paimonchan/paimon-mcp-fetch/main/install.ps1 | iex
-```
-
-**macOS / Linux (Bash)**:
-```bash
-curl -fsSL https://raw.githubusercontent.com/paimonchan/paimon-mcp-fetch/main/install.sh | sh
-```
-
-> ⚠️ Windows users: Your antivirus may flag the downloaded `.exe`. See our [AV explanation & workarounds](#-windows-antivirus-warning).
-
----
-
-### Option 4: Download from GitHub Releases
-
-Download the pre-built binary for your OS from [GitHub Releases](https://github.com/paimonchan/paimon-mcp-fetch/releases).
-
-Extract and place it somewhere in your PATH.
-
-> ⚠️ Same AV warning as Option 3 — this is a raw unsigned binary.
-
----
-
-### Option 5: Build from Source
-
-Requires [Go 1.22+](https://go.dev/dl/).
-
-```bash
-git clone https://github.com/paimonchan/paimon-mcp-fetch
-cd paimon-mcp-fetch
-go build -ldflags="-s -w" -o paimon-mcp-fetch ./cmd/paimon-mcp-fetch/
-```
-
-**Why build yourself?** You can verify the source code and produce a byte-for-byte identical binary to our releases. See [Reproducible Builds](https://github.com/paimonchan/paimon-mcp-fetch/blob/main/.github/workflows/release.yml).
-
----
-
-### Option 6: Docker (No AV Issues)
-
-Run entirely in a container — no local binary, no antivirus warnings.
-
-**Pull and run:**
-```bash
-docker run -i --rm ghcr.io/paimonchan/paimon-mcp-fetch:latest
-```
-
-**MCP client config (OpenCode):**
-```json
-{
-  "mcp": {
-    "fetch": {
-      "type": "local",
-      "command": ["docker", "run", "-i", "--rm", "ghcr.io/paimonchan/paimon-mcp-fetch:latest"],
-      "enabled": true
-    }
-  }
-}
-```
-
-> Images are published automatically on every release to [GitHub Container Registry](https://github.com/paimonchan/paimon-mcp-fetch/pkgs/container/paimon-mcp-fetch).
-
----
-
-## ⚠️ Windows Antivirus Warning
-
-**This is a false positive — our code is 100% safe and open source.**
-
-Windows Defender and some antivirus programs (Avast, AVG, etc.) may flag the `paimon-mcp-fetch.exe` binary as `IDP.Generic` or similar. This happens because:
-
-- Go compiles to a **single self-contained binary** without a digital signature
-- The binary contains network operations (`net/http`) and file access patterns
-- Antivirus uses **heuristic detection** that matches these patterns to potential malware
-
-**Our mitigation:**
-- ✅ Full source code is public and auditable in this repository
-- ✅ You can [build from source](#option-4-build-from-source) and verify the binary yourself
-- ✅ Public CI/CD build logs via GitHub Actions
-- ✅ Submit false positive reports to antivirus vendors (Phase 4)
-
-> **Note:** We do not have a budget for a code signing certificate (~$200-500/year), which is the only guaranteed fix for this issue. Package manager installs (Scoop, Winget) may reduce but not eliminate these warnings.
-
-**Workaround:** Add an exclusion in your antivirus for the install directory, or use [Docker](#option-3-download-from-github-releases) as an alternative.
-
----
-
-## MCP Client Configuration
-
-After installation, add to your MCP client config:
-
-### Claude Desktop
-
-`claude_desktop_config.json`:
-```json
-{
-  "mcpServers": {
-    "fetch": {
-      "command": "paimon-mcp-fetch"
-    }
-  }
-}
-```
-
-### OpenCode
-
-`.opencode/config.json`:
 ```json
 {
   "mcp": {
@@ -182,22 +30,102 @@ After installation, add to your MCP client config:
 }
 ```
 
-### VS Code
+Done. Start fetching URLs in your AI assistant.
 
-`.vscode/mcp.json`:
+---
+
+## Features
+
+| Feature | Detail |
+|---------|--------|
+| **Web Content Extraction** | Fetches pages and converts HTML to clean markdown |
+| **Image Processing** | Optional (`-tags image`) — resize, merge, optimize images |
+| **JS Rendering** | Optional (`-tags jsrender`) — headless Chrome for SPAs and dynamic sites |
+| **SSRF Protection** | 7-layer defense against server-side request forgery |
+| **Smart Defaults** | robots.txt disabled by default, browser-like User-Agent, 10MB HTML limit |
+| **Caching** | In-memory LRU cache with configurable TTL |
+| **Rate Limiting** | Per-domain token bucket (5 req/sec, burst 10) |
+| **Retry** | Exponential backoff for transient errors only |
+
+---
+
+## Installation
+
+### Option 1: `go install` (Recommended)
+
+Requires [Go 1.26+](https://go.dev/dl/).
+
+```bash
+go install github.com/paimonchan/paimon-mcp-fetch/cmd/paimon-mcp-fetch@latest
+```
+
+### Option 2: Download Release
+
+Grab the pre-built binary for your OS from [GitHub Releases](https://github.com/paimonchan/paimon-mcp-fetch/releases).
+
+### Option 3: Build from Source
+
+```bash
+git clone https://github.com/paimonchan/paimon-mcp-fetch
+cd paimon-mcp-fetch
+go build -ldflags="-s -w" -o paimon-mcp-fetch ./cmd/paimon-mcp-fetch/
+```
+
+### Option 4: Docker
+
+```bash
+docker run -i --rm ghcr.io/paimonchan/paimon-mcp-fetch:latest
+```
+
+### Option 5: Package Manager (Coming Soon)
+
+```bash
+scoop install paimon-mcp-fetch
+winget install paimon-mcp-fetch
+brew install paimon-mcp-fetch
+```
+
+> Manifests are ready in `scoop/`, `winget/`, and `homebrew/` — pending submission to official repositories.
+
+### Windows Note
+
+Go binaries are occasionally flagged by some antivirus software as a false positive. If this happens, use `go install` (your antivirus sees `go.exe`, not our binary) or the Docker option. See [Security & Trust](#security--trust) for more details.
+
+---
+
+## MCP Client Configuration
+
+### OpenCode
+
+`~/.config/opencode/opencode.json`:
+
 ```json
 {
   "mcp": {
-    "servers": {
-      "fetch": {
-        "command": "paimon-mcp-fetch"
-      }
+    "fetch": {
+      "type": "local",
+      "command": ["paimon-mcp-fetch"],
+      "enabled": true
     }
   }
 }
 ```
 
-### Cursor / Cline / Windsurf
+### Claude Desktop
+
+`claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "fetch": {
+      "command": "paimon-mcp-fetch"
+    }
+  }
+}
+```
+
+### VS Code / Cursor / Cline / Windsurf
 
 ```json
 {
@@ -213,52 +141,47 @@ After installation, add to your MCP client config:
 
 ## Environment Variables
 
+All config is via environment variables with sensible defaults.
+
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `PAIMON_MCP_FETCH_TIMEOUT_MS` | 12000 | Request timeout in milliseconds |
-| `PAIMON_MCP_FETCH_MAX_REDIRECTS` | 5 | Maximum redirects to follow |
-| `PAIMON_MCP_FETCH_MAX_HTML_BYTES` | 2097152 | Max HTML response size (2MB) |
+| `PAIMON_MCP_FETCH_MAX_HTML_BYTES` | 10485760 | Max HTML response size (10MB) |
 | `PAIMON_MCP_FETCH_MAX_IMAGE_BYTES` | 10485760 | Max image size (10MB) |
-| `PAIMON_MCP_FETCH_DISABLE_SSRF` | false | Disable SSRF guard |
 | `PAIMON_MCP_FETCH_CACHE_ENABLED` | true | Enable response cache |
 | `PAIMON_MCP_FETCH_CACHE_TTL_SECS` | 300 | Cache TTL in seconds |
-| `PAIMON_MCP_FETCH_CACHE_MAX_ENTRIES` | 100 | Maximum cache entries |
-| `PAIMON_MCP_FETCH_RATE_LIMIT_ENABLED` | true | Enable per-domain rate limiting |
 | `PAIMON_MCP_FETCH_RATE_LIMIT_PER_SECOND` | 5.0 | Requests per second per domain |
 | `PAIMON_MCP_FETCH_RATE_LIMIT_BURST` | 10 | Max burst size per domain |
-| `PAIMON_MCP_FETCH_RETRY_MAX_ATTEMPTS` | 3 | Max retry attempts for transient errors |
+| `PAIMON_MCP_FETCH_RETRY_MAX_ATTEMPTS` | 3 | Max retry attempts |
 | `PAIMON_MCP_FETCH_JS_RENDER_ENABLED` | false | Enable headless Chrome JS rendering |
-| `PAIMON_MCP_FETCH_RETRY_BASE_DELAY_MS` | 500 | Base retry delay (exponential backoff) |
-| `PAIMON_MCP_FETCH_RETRY_MAX_DELAY_MS` | 10000 | Max retry delay cap |
+| `PAIMON_MCP_FETCH_DISABLE_SSRF` | false | Disable SSRF guard |
+
+Full list: see `internal/config/config.go`.
 
 ---
 
-## Optional Features
+## Optional Build Features
 
 ### Image Processing (`-tags image`)
 
-Compile with image support:
+Compile with image support for downloading, resizing, merging, and saving images:
+
 ```bash
 go build -tags image -o paimon-mcp-fetch ./cmd/paimon-mcp-fetch/
 ```
 
 ### JS Rendering (`-tags jsrender`)
 
-For JS-heavy sites (Yahoo Finance, XE.com, Google Finance):
+For JavaScript-heavy sites (Yahoo Finance, TradingView, SPAs):
 
 **Requirements:** Chrome or Chromium must be installed.
 
-**Build:**
 ```bash
 go build -tags jsrender -o paimon-mcp-fetch ./cmd/paimon-mcp-fetch/
+PAIMON_MCP_FETCH_JS_RENDER_ENABLED=true ./paimon-mcp-fetch
 ```
 
-**Enable via env var:**
-```bash
-PAIMON_MCP_FETCH_JS_RENDER_ENABLED=true paimon-mcp-fetch
-```
-
-**Note:** JS rendering is slower (~3-5s per page) but can extract data from SPAs and dynamic sites that static fetch cannot.
+Slower (~3-5s per page) but can extract data that static fetch cannot.
 
 ---
 
@@ -266,30 +189,27 @@ PAIMON_MCP_FETCH_JS_RENDER_ENABLED=true paimon-mcp-fetch
 
 ### Why a Go Binary?
 
-Unlike TypeScript (`npx`) or Python (`uvx`) MCP servers, `paimon-mcp-fetch` is a **single compiled binary** with **zero runtime dependencies**. This means:
-
-- **No Node.js, no Python, no Docker required**
+- **Zero runtime dependencies** — no Node.js, no Python, no Docker
 - **Startup in ~5ms** (vs 500ms–2s for Node.js)
 - **Memory usage ~8–15MB** (vs 50–100MB for Node.js)
-- **One file to download and run**
-
-### Addressing the "Unknown Binary" Concern
-
-We understand that running a pre-built binary requires trust. Here's how we address that:
-
-1. **Fully Open Source** — This repository is public under MIT license. You can read every line of code.
-2. **Build It Yourself** — Anyone can clone this repo and run `go build` to produce an **identical** binary. See [Build from Source](#option-4-build-from-source).
-3. **Reproducible Builds** — Release binaries are built via public GitHub Actions. The workflow is visible in `.github/workflows/`.
-4. **Checksum Verification** — Every GitHub Release includes SHA256 checksums for all binaries.
-5. **Package Manager Distribution** — Installing via Scoop, Winget, or Homebrew provides an audited installation path.
+- **Fully open source** — MIT license, public repo
+- **Reproducible builds** — GitHub Actions CI/CD with public logs
+- **SHA256 checksums** — every release includes verified hashes
 
 ### Security Features
 
-- **SSRF Protection**: 7-layer defense (URL parsing, scheme validation, hostname blocklist, DNS resolution, private IP filtering, redirect re-validation, stream limits)
-- **Robots.txt**: Respected by default with fail-open behavior
+- **SSRF Protection**: 7-layer defense (URL parse, scheme validation, hostname blocklist, DNS resolution, private IP filtering, redirect re-validation, stream limits)
 - **Size Limits**: Stream-based reading with configurable byte limits
 - **Timeouts**: All network calls have context deadlines
 - **No Secrets in Logs**: API keys and tokens are never logged
+
+### Windows Antivirus Note
+
+Some antivirus software may flag unsigned Go binaries as a false positive. This is a known industry-wide issue with compiled binaries, not specific to this project. If you encounter this:
+
+- Use `go install` — your antivirus sees the signed Go compiler, not a raw binary
+- Use the Docker option — no local binary at all
+- Build from source — verify the code yourself
 
 ---
 
@@ -318,7 +238,7 @@ Fetches a URL and returns content as markdown.
     }
   },
   "security": {
-    "ignoreRobotsTxt": false
+    "ignoreRobotsTxt": true
   }
 }
 ```
@@ -333,8 +253,17 @@ MCP Server (mcp-go) → UseCase → Domain (entities, ports)
               Adapters implement port interfaces
 ```
 
+**Layers:**
+- **Domain** — Entities, errors, port interfaces, policies (zero external deps)
+- **UseCase** — Orchestration logic with constructor injection
+- **Adapter** — HTTP client, content extractor, robots checker, cache, rate limiter, image processor, JS renderer
+
 ---
 
 ## License
 
 MIT
+
+---
+
+> Built with Go. Zero runtime dependencies. Single binary.
