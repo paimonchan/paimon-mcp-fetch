@@ -113,8 +113,10 @@
 
 ## Phase 4 — Advanced & Distribution Polish
 
-- [ ] **4.1 JS Rendering** (`//go:build jsrender`)
-  - [ ] chromedp integration for dynamic content
+- [x] **4.1 JS Rendering** (`//go:build jsrender`)
+  - [x] chromedp integration for dynamic content
+  - [x] `renderer.go` + `renderer_stub.go` with build tag
+  - [x] Config: `PAIMON_MCP_FETCH_JS_RENDER_ENABLED`
 
 - [ ] **4.2 Disk cache**
   - [ ] bbolt or sqlite option
@@ -135,6 +137,19 @@
 
 ---
 
+## Post-Release Fixes & Polish
+
+- [x] **User-Agent browser-like** — `Mozilla/5.0 ... Chrome/120...` to reduce 403 blocks
+- [x] **MaxHTMLBytes 10MB** — increased from 2MB for JS-heavy finance sites
+- [x] **robots.txt disabled by default** — better UX, fewer blocks
+- [x] **Rate limit 5 req/sec** — increased from 1 req/sec with burst 10
+- [x] **Cache TTL from config** — `PAIMON_MCP_FETCH_CACHE_TTL_SECS` now wired to use case
+- [x] **Retry logic fix** — 4xx client errors not retried, 5xx server errors retried
+- [x] **Build version ldflags** — `var version string` for `-X main.version=vX.Y.Z`
+- [x] **install.ps1 fix** — corrected GitHub repo URL to `paimonchan/paimon-mcp-fetch`
+
+---
+
 ## Reference Implementations
 
 - Official: https://github.com/modelcontextprotocol/servers/tree/main/src/fetch
@@ -144,7 +159,7 @@
 
 ## Current Status
 
-**Phase:** 4 (partial) — **Docker complete** ✅  
+**Phase:** 4 — **Docker + JS Rendering complete** ✅  
 **All tests passing across 7 packages**  
 **Repo:** https://github.com/paimonchan/paimon-mcp-fetch (public)  
-**Next:** Disk cache, observability, JS rendering (on demand)
+**Next:** Disk cache, observability (on demand)
