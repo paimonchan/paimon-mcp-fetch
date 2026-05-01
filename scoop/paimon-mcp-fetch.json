@@ -1,0 +1,23 @@
+{
+    "version": "0.1.0",
+    "description": "Web content fetching MCP server built with Go",
+    "homepage": "https://github.com/user/paimon-mcp-fetch",
+    "license": "MIT",
+    "architecture": {
+        "64bit": {
+            "url": "https://github.com/user/paimon-mcp-fetch/releases/download/v0.1.0/paimon-mcp-fetch-windows-amd64.exe",
+            "hash": "PLACEHOLDER_SHA256"
+        }
+    },
+    "bin": "paimon-mcp-fetch-windows-amd64.exe",
+    "checkver": {
+        "github": "https://github.com/user/paimon-mcp-fetch"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://github.com/user/paimon-mcp-fetch/releases/download/v$version/paimon-mcp-fetch-windows-amd64.exe"
+            }
+        }
+    }
+}

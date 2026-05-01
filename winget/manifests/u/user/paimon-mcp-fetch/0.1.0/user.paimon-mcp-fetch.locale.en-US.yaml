@@ -1,0 +1,28 @@
+# Created with WinGet Releaser v2 using Komac v1.11.0
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.defaultLocale.1.5.0.schema.json
+
+PackageIdentifier: user.paimon-mcp-fetch
+PackageVersion: 0.1.0
+PackageLocale: en-US
+Publisher: user
+PublisherUrl: https://github.com/user
+PublisherSupportUrl: https://github.com/user/paimon-mcp-fetch/issues
+PackageName: paimon-mcp-fetch
+PackageUrl: https://github.com/user/paimon-mcp-fetch
+License: MIT
+LicenseUrl: https://github.com/user/paimon-mcp-fetch/blob/main/LICENSE
+ShortDescription: Web content fetching MCP server built with Go
+Description: |
+  paimon-mcp-fetch is a Model Context Protocol (MCP) server that fetches
+  web content and converts HTML to markdown. Built with Go as a single
+  binary with zero runtime dependencies.
+Moniker: paimon-fetch
+Tags:
+  - mcp
+  - fetch
+  - markdown
+  - web-scraping
+  - ai
+ReleaseNotesUrl: https://github.com/user/paimon-mcp-fetch/releases/tag/v0.1.0
+ManifestType: defaultLocale
+ManifestVersion: 1.5.0
