@@ -21,6 +21,9 @@ import (
 	"github.com/paimonchan/paimon-mcp-fetch/internal/usecase"
 )
 
+// version is set at build time via -ldflags "-X main.version=v0.1.0"
+var version string
+
 func main() {
 	logger := slog.New(slog.NewJSONHandler(os.Stderr, nil))
 	slog.SetDefault(logger)
@@ -29,7 +32,7 @@ func main() {
 	cfg := config.Load()
 
 	logger.Info("starting paimon-mcp-fetch",
-		"version", cfg.ServerVersion,
+		"version", version,
 		"timeout_ms", cfg.TimeoutMS,
 		"max_redirects", cfg.MaxRedirects,
 	)
@@ -100,6 +103,7 @@ func main() {
 		cacheStore,
 		limiter,
 		sizePolicy,
+		cfg.CacheTTL,
 	)
 
 	// Build MCP server
